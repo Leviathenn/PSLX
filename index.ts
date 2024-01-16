@@ -7,9 +7,37 @@ import * as winston from 'winston'
 import * as fs from 'fs';
 import * as diff2html from 'diff2html';
 
+import { config } from "./config"
+
+import * as bundler from "./bundler"
+
 const commandLineArguments:string[] = [];
 const options:string[] = [];
 const ignoreArgs = [process.argv[0], process.argv[1]];
+
+
+if(fs.existsSync(config.configFolder)){
+    if(fs.existsSync(config.runtimeFolder)){
+
+    }else{
+        fs.mkdirSync(config.runtimeFolder);
+        config.runtimes.forEach(runtime => {
+            bundler.downloadRuntimes(runtime, true);
+        })
+    }
+}else{
+    fs.mkdirSync(config.configFolder);
+    if(fs.existsSync(config.runtimeFolder)){
+
+    }else{
+        fs.mkdirSync(config.runtimeFolder);
+        config.runtimes.forEach(runtime => {
+            bundler.downloadRuntimes(runtime, true);
+        })
+    }
+}
+
+
 if(fs.existsSync("app.log")){
     fs.rmSync("app.log");
 }else{
@@ -71,6 +99,8 @@ function Usage(){
         ./PSLX | PSLX <option> <url | mergefile> 
     `
 }
+console.log(findData(fs.readFileSync("runtimes/go.txt").toString(),"syscall/js.copyBytesToGo"));
+
 process.argv.forEach(arg => {
     if(!ignoreArgs.includes(arg)){
      if(arg.startsWith("--") || arg.startsWith("-")){
