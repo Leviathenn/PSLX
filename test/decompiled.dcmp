@@ -1,0 +1,10 @@
+import memory js_mem;
+
+data d_HelloWorlldd(offset: 0) = "Hello, Worlldd!!!";
+
+import function console_log(a:int, b:int);
+
+export function Lfunc_exp1() {
+  console_log(0, 17)
+}
+
