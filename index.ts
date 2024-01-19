@@ -5,7 +5,6 @@
 import axios from 'axios';
 import * as winston from 'winston'
 import * as fs from 'fs';
-import * as diff2html from 'diff2html';
 
 import { config } from "./config"
 
